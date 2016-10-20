@@ -1,80 +1,57 @@
 = Anypoint Object Store 2
-:keywords: Object Store 2, object store
+:keywords: Object Store 2, object store, os2, OSv2
 
-Anypoint Object Store 2 builds on the Mule Object Store and extends it as a true platform object store that can be used for caching and sharing data across applications.
+Anypoint Object Store version 2 (OSv2) is a cache that lets applications store information temporarily to share data. OSv2 provides a key/list value pair for storing information. The list part of the key/list can be multiple values of a String, number counter, and binary.
 
-A person or an application can create as many object stores as needed to store different kinds of data. For example, an application can use Object Store 2 to create an API cache, an link:/mule-user-guide/v/3.8/idempotent-filter[idempotent filter], or a way to store information to share between Mule workers, such as OAuth tokens. All of these are different object stores that can be shared across applications.
+This model provides extremely fast data storage and retrieval, and provides true link:https://en.wikipedia.org/wiki/Idempotence[idempotency] where applications can access data repeatedly with the same result.
+
+OSv2 builds on the existing Mule Object Store (OSv1) and extends it as a true platform object store that can be used for caching and sharing data across applications.
+
+You can use the OSv1 link:/mule-user-guide/v/3.8/object-store-connector[Object Store connector] with OSv2. The data you store or retrieve using the connector transparently accesses OSv2.
+
+OSv2 provides a REST API model where multiple storage providers can be utilized for optimal speed and efficiency. In effect, OSv2 follows the MuleSoft model of API access so that multiple database sources can be easily added via a Java API to provide the object store manager with extensible storage capabilities:
+
+image:os2-db-api-mgr.png[os2-db-api-mgr]
+
+You can create as many object stores as needed to store different kinds of data. For example, an application can use OSv2 to create an API cache, an link:/mule-user-guide/v/3.8/idempotent-filter[idempotent filter], or a way to store information to share between Mule workers, such as OAuth tokens. All of these are different object stores that can be shared across applications.
 
 == Features
 
-Object Store 2 provides these features:
+Object Store v2 provides these features:
 
 * Content storage between applications
 * REST API for creating and managing object stores
 * Anypoint Studio connector
-* Rate limiting across applications
 * API caching
 * Distributed memory cacheing
 * Mule reliability components: IdempotentRouter, UntilSuccessful, and Resequencer
 * Node.js microservices
 
-== Documents
+== Workflow
 
-The Object Store 2 documentation set consists of:
+To use Object Store v2:
 
-* link:/anypoint-mq/os2-tutorial[Tutorial]
-* Workflow Guide
-* Security Guide
-* Operations Guide
-* Connector Guide
-* REST APIs
-* FAQ
-* Release Notes
-
-== Object Store 2 Operations
-
-Object Store 2 provides these operations:
-
-[cols="30a,70a",options="header"]
-|===
-|Task |Operations
-
-|Define |
-
-* Object Store
-* Key, value
-* TTL (by default TTL is 1209600 seconds (14 days). TTL values are in seconds. MAX TTL of  2592000 Seconds (30 days).
-* Persistence property
-* Usage limits for each application or environment, includes options for limiting based on keys or size and how to enforce them.
-
-|Delete |
-
-* Entire object store
-* Individual key-value/lists
-* Individual values
-* Multiple key-value/lists
-
-|View |
-
-* Object stores
-* Key-value/lists along with TTL and usage (with pagination)
-* Usage for each object store
-* Total usage for each key
-
-|Search |
-
-* By keys (enables partial search with the first few letters of a key)
-|===
-
-== Object Store 2 Workflow
-
-Using Object Store 2 works as follows:
-
+. Create an application that uses the Object Store connector. From Anypoint Studio,
+you can create a simple application using the HTTP connector, Set Payload, Object Store,
+and Logger.
+. Export the application to Runtime Manager.
 . Log into link:https://anypoint.mulesoft.com/#/signin[Anypoint Platform].
-. Click *Runtime Manager*.
-. If you have an existing application, click it and *Manage Application*.
-+
-If this is your first use, create an application in Anypoint Studio and export it as a Mule project zip file. In Runtime Manager, click *Deploy application* and choose the exported project.
+. Click *Runtime Manager* and click the application so that you can manage settings.
+. Click *Application Data* and enable access to Object Store v2.
+. Run your application so that data is conveyed to and from the object store.
+. Use the Application Data interface to monitor Object Store access to your application.
+
+== Documentation
+
+The documents for Object Store v2 are:
+
+[%header,cols="30a,70a"]
+|===
+|Document |Description
+|link:/anypoint-mq/os2-tutorial[Tutorial] |How to create an object store, and read and write data
+|link:link:/anypoint-mq/os2-apis[REST API] |Describes APIs for creating and managing object stores
+|===
+
 
 == See Also
 
