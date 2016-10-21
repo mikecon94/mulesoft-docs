@@ -41,7 +41,7 @@ OSv2 provides these operations:
 * Put item as confirmable String
 * Put store
 
-|link:https://mulesoft.github.io/objectstore-connector/2.0.1/apidocs/objectstore-apidoc.html#_dual_store[Dual store] *$#8224;*, link:https://mulesoft.github.io/objectstore-connector/2.0.1/apidocs/objectstore-apidoc.html#_store[Store]
+|link:https://mulesoft.github.io/objectstore-connector/2.0.1/apidocs/objectstore-apidoc.html#_dual_store[Dual store] *&#8224;*, link:https://mulesoft.github.io/objectstore-connector/2.0.1/apidocs/objectstore-apidoc.html#_store[Store]
 |Delete |
 
 * Remove object store
@@ -51,7 +51,7 @@ OSv2 provides these operations:
 |link:https://mulesoft.github.io/objectstore-connector/2.0.1/apidocs/objectstore-apidoc.html#_remove[Remove]
 |===
 
-*$#8224;* The *Dual Store* operation in the Object Store connector consists of these two operations where the 
+*&#8224;* The *Dual Store* operation in the Object Store connector consists of these two operations where the 
 key and value are stored and then the values reversed. The Dual Store operation acts the same as two OSv2 *Put item as String* calls to accomplish these results:
 
 . `objectStore.store(key, value);`
