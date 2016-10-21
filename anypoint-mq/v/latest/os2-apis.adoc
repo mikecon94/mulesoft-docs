@@ -44,7 +44,7 @@ OSv2 provides these operations:
 * Put item as confirmable String
 * Put store
 
-|link:https://mulesoft.github.io/objectstore-connector/2.0.1/apidocs/objectstore-apidoc.html#_dual_store[Dual store] (Put item as String), link:https://mulesoft.github.io/objectstore-connector/2.0.1/apidocs/objectstore-apidoc.html#_store[Store]
+|link:https://mulesoft.github.io/objectstore-connector/2.0.1/apidocs/objectstore-apidoc.html#_dual_store[Dual store] *$#8224;*, link:https://mulesoft.github.io/objectstore-connector/2.0.1/apidocs/objectstore-apidoc.html#_store[Store]
 |Delete |
 
 * Remove object store
@@ -53,6 +53,12 @@ OSv2 provides these operations:
 
 |link:https://mulesoft.github.io/objectstore-connector/2.0.1/apidocs/objectstore-apidoc.html#_remove[Remove]
 |===
+
+*$#8224;* The *Dual Store* operation in the Object Store connector consists of these two operations where the 
+key and value are stored and then the values reversed. The Dual Store operation acts the same as two OSv2 *Put item as String* calls to accomplish these results:
+
+. `objectStore.store(key, value);`
+. `objectStore.store(value, key);`
 
 == Object Store 2 APIs Workflow
 
@@ -79,11 +85,11 @@ The application name you choose becomes the name users access your application w
 For example, if you name your application, mydemo, users can access your application at
 `http://mydemo.cloudhub.io/`.
 +
-. Ignore the *Deployment Target* and *Application File* fields - Anypoint Studio
+.. Ignore the *Deployment Target* and *Application File* fields - Anypoint Studio
 fills in this information for you.
-. If needed, change the Mule *Runtime version* field from the drop-down list.
-. If needed, change the *Worker size* field.
-. Click *Deploy Application*.
+.. If needed, change the Mule *Runtime version* field from the drop-down list.
+.. If needed, change the *Worker size* field.
+.. Click *Deploy Application*.
 . Set up an application like Postman to access the object store.
 Obtain the access_token value from *???*.
 .. Configure the object store access URL to: +
