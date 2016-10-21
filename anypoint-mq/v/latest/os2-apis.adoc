@@ -1,17 +1,14 @@
 = Anypoint Object Store v2 REST APIs
 :keywords: osv2, os2, object store, store, rest, apis
 
-Anypoint Object Store v2 (OSv2) provides REST APIs that let you get and store store and key/list values.
+Anypoint Object Store v2 (OSv2) provides REST APIs that let you get and store `key,list` values.
 
-NOTE: MuleSoft currently provides customers with client ID and client secret values. Before using the Object Store REST APIs, obtain this information from your MuleSoft representative.
-
-The object store is deployed in an environment in an organization. Therefore, after getting
-the client ID and secret, you can use a program such as Postman to send and get responses
-from the object store REST API.
+An object store belongs to an application. You can get the client ID and client secret from the *Application Data* menu 
+from link:https://anypoint.mulesoft.com/#/signin[Anypoint Platform] > *Runtime Manager*.
 
 == OSv2 Operations
 
-IMPORTANT: The Object Store Connector reads and writes in the `key,value` format; whereas OSv2 reads and writes in the `key,list` format. If an application writes to object store using the REST interface and reads with the object store connector from the same key, the read only retrieves the value at element 0 of the list.
+IMPORTANT: The link:/mule-user-guide/v/3.8/object-store-connector[Object Store Connector] reads and writes in the `key,value` format; whereas OSv2 reads and writes in the `key,list` format. If an application writes to an object store using the REST interface and reads with the object store connector from the same key, the read can only retrieve the value at element 0 of the list.
 
 OSv2 provides these operations:
 
@@ -66,6 +63,12 @@ NOTE: Before deploying an object store application, first log into link:https://
 
 Accessing the Object Store 2 API works as follows:
 
+* <<Deploy an Application>>
+* <<Get Client ID and Secret>>
+* <<Access the REST API>>
+
+=== Deploy an Application
+
 . Log into link:https://anypoint.mulesoft.com/#/signin[Anypoint Platform].
 . Click *Runtime Manager*.
 . If you have an existing application, click it and click *Manage Application*.
@@ -90,6 +93,13 @@ fills in this information for you.
 .. If needed, change the Mule *Runtime version* field from the drop-down list.
 .. If needed, change the *Worker size* field.
 .. Click *Deploy Application*.
+
+=== Get Client ID and Secret
+
+After deploying an application, ...<coming when UI appears>...
+
+=== Access the REST API
+
 . Set up an application like Postman to access the object store.
 Obtain the access_token value from *???*.
 .. Configure the object store access URL to: +
