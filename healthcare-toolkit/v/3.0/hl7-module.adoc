@@ -209,8 +209,10 @@ The usage value may be:
 
 To use the connector, you need to know the locations of the schemas in your project. If you're using the out of the box HL7 schemas and not customizing anything, the schema location follows the  `/hl7/{version}/{message structure}.esl` pattern. For example, if you're using the `2.5.1` version and the ADT_A01 message structure, your schema location is `/hl7/v2_5_1/ADT_A01.esl`.
 
-If you're creating a custom implementation convention (whether full schemas, or overlay schemas), you should put your schemas under a directory in src/main/app and refer to the location using `${app.home}`. For example, if you've put your ADT_A01 schema under `src/main/app/mypartner/ADT_A01.esl`, your schema location is `${app.home}/mypartner/ADT_A01.esl`.
+If you're creating a custom implementation convention (whether full schemas, or overlay schemas), you should put your schemas under a directory in src/main/app and refer to the location using `${app.home}`. For example, if you've put your ADT_A01 schema under `src/main/app/mypartner/ADT_A01.esl`, your schema location is `${app.home}/mypartner/ADT_A01.esl`. The Mule Runtime automatically checks `src/main/app`
+for any locations that contain the `${app.home}` value.
 
+[[configconnector]]
 == Configure HL7 EDI
 
 After you install the connector and configure your schema customizations (if any), you can start using the connector. Create separate configurations for each implementation convention.
@@ -230,6 +232,51 @@ image:hl7-module-3.png[hl7-module-3]
 . Configure the parameters according to the connector reference.
 . Click *OK* to save the global connector configurations.
 . Return to the *Message Flow* tab in Studio.
+
+=== Setting your HL7 Identification
+
+You can configure the Message Header (MSH) application and facility identification for you and your trading partner on the HL7 EDI connector configuration.
+
+The "Self identification" parameters identify your side of the trading partner relationship, while the "Partner identification" parameters identify your trading partner. The values you set are used when writing HL7 messages to supply the namespace ID, universal ID, and universal ID type, and are verified in receive messages. If you don't want to restrict incoming messages you can leave these blank, and set the values for outgoing messages on the write operation or the actual outgoing message. Values set on the write operation override the connector configuration, and values set directly on the message override both the connector configuration and any values set on the write operation.
+
+In Studio, these values are set in these Global Element Properties:
+
+[source,code,linenums]
+----
+Self identification:
+Mule Application Namespace ID (MSH-3-1/MSH-5-1):
+Mule Application Universal ID (MSH-3-2/MSH-5-2):
+Mule Application Universal ID Type (MSH-3-3/MSH-5-3):
+
+Partner identification:
+Partner Application Namespace ID (MSH-3-1/MSH-5-1}:
+Partner Application Universal ID (MSH-3-2/MSH-5-2}:
+Partner Application Universal ID Type (MSH-3-3/MSH-5-3):
+----
+
+=== Setting Parser Options
+
+You can set the following options if needed:
+
+* Validate HL7 Message Version
+* Fail when value length outside allowed range
+* Fail when invalid character in value
+* Fail when too many repeats of value
+* Fail when unknown segment in message
+* Fail when segment out of order in message set
+* Fail when unused segment included in message set
+* Fail when too many repeats of segment
+
+=== Operations
+
+After setting Global Element Properties, the HL7 EDI transformer provides two
+operations:
+
+* *Read* - Read HL7 messages. Set a Mule expression in the *Edi Content Reference* field such as
+`&#x0023;[payload]` for the format of your read request.
+* *Write* - Write HL7 messages. Set the *Message Structure* field to `InMessage` to acquire the current
+HL7 message prior to writing new content, or set *Message Structure* to `OutMessage` to write out content. Set a Mule expression in the *Message Reference* field such as
+`&#x0023;[payload]` for the format of your write request.
 
 ....
 [tab,title="XML Editor or Standalone"]
@@ -251,32 +298,10 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 
 ----
 
-Follow these steps to configure HL7 EDI in your application.
+Follow these steps to configure HL7 EDI in your application:
 
-. Create a global ServiceNow configuration outside and above your flows, using the following global configuration code.
+. Create a global configuration outside and above your flows, using the following global configuration code:
 +
-[source, xml, linenums]
-----
-<hl7-edi:config name="MyTradingPartner" doc:name="HL7 EDI: Configuration">
-  <hl7-edi:schemas>
-    <hl7-edi:schema>/hl7/v2_5_1/ADT_A01.esl</hl7-edi:schema>
-    <hl7-edi:schema>/hl7/v2_5_1/ADT_A02.esl</hl7-edi:schema>
-  </hl7-edi:schemas>
-</hl7-edi:config>
-----
-+
-. Configure the connector according to your implementation convention using the guide below.
-....
-------
-
-After you set a global element for your HL7 EDI, configure the schemas, acknowledgments, IDs, and the parser options. See also: link:http://mulesoft.github.io/edi-module/[references for these options].
-
-=== Setting Your Schema Locations
-
-NOTE: Currently, you can only configure schema locations in the Anypoint Studio XML view.
-
-Using the schema locations determined above, switch to the XML view by clicking *Configuration XML* in Studio and modify your HL7 EDI configuration to include a list of all the schemas you wish to include by adding an <http://edischema[edi:schema]> element for each document type:
-
 [source, xml, linenums]
 ----
 <hl7-edi:config name="MyTradingPartner" doc:name="HL7 EDI: Configuration">
@@ -289,9 +314,94 @@ Using the schema locations determined above, switch to the XML view by clicking 
 
 === Setting your HL7 Identification
 
-You can configure the MSH application and facility identification for you and your trading partner on the HL7 EDI connector configuration.
+You can configure the Message Header (MSH) application and facility identification for you and your trading partner on the HL7 EDI connector configuration.
 
-The "Self identification" parameters identify your side of the trading partner relationship, while the "Partner identification" parameters identify your trading partner. The values you set are used when writing HL7 messages to supply the namespace ID, universal ID,and universal ID type, and are verified in receive messages. If you don't want to restrict incoming messages you can leave these blank, and set the values for outgoing messages on the write operation or the actual outgoing message. Values set on the write operation overrides the connector configuration, and values set directly on the message overrides both the connector configuration and any values set on the write operation.
+The "Self identification" parameters identify your side of the trading partner relationship, while the "Partner identification" parameters identify your trading partner. The values you set are used when writing HL7 messages to supply the namespace ID, universal ID, and universal ID type, and are verified in receive messages. If you don't want to restrict incoming messages you can leave these blank, and set the values for outgoing messages on the write operation or the actual outgoing message. Values set on the write operation override the connector configuration, and values set directly on the message override both the connector configuration and any values set on the write operation.
+
+Self identification parameters:
+
+[source,xml,linenums]
+----
+appNamespaceIdSelf="<value>"
+appUniversalIdSelf="<value>"
+appUniversalIdTypeSelf="<value>"
+----
+
+Partner identification parameters:
+
+[source,xml,linenums]
+----
+appNamespaceIdPartner="<value>"
+appUniversalIdPartner="<value>"
+appUniversalIdTypePartner="<value>"
+----
+
+=== Setting Parser Options
+
+You can set the following options if needed:
+
+[%header,cols="50a,50a"]
+|===
+|XML Value (When set to `true`) |Visual Studio Option
+|validateHL7Version="true" |Validate HL7 Message Version
+|valueLengthErrorFail="true" |Fail when value length outside allowed range
+|invalidCharacterInValueFail="true" |Fail when invalid character in value
+|wrongValuesRepeatsFail="true" |Fail when too many repeats of value
+|unknownSegmentFail="true" |Fail when unknown segment in message
+|segmentOutOfOrderFail="true" |Fail when segment out of order in message set
+|unusedSegmentPresentFail="true" |Fail when unused segment included in message set
+|wrongSegmentsRepeatsFail="true" |Fail when too many repeats of segment
+|===
+
+=== Setting Your Schema Locations
+
+NOTE: Currently, you can only configure schema locations in the Anypoint Studio XML view.
+
+Switch to the XML view by clicking *Configuration XML* in Studio and modify your HL7 EDI configuration to include a list of all the schemas you wish to include by adding an `+<http://edischema[edi:schema]>+` element for each document type:
+
+[source, xml, linenums]
+----
+<hl7-edi:config name="MyTradingPartner" doc:name="HL7 EDI: Configuration">
+  <hl7-edi:schemas>
+    <hl7-edi:schema>/hl7/v2_5_1/ADT_A01.esl</hl7-edi:schema>
+    <hl7-edi:schema>/hl7/v2_5_1/ADT_A02.esl</hl7-edi:schema>
+  </hl7-edi:schemas>
+</hl7-edi:config>
+----
+
+=== Operations
+
+After setting Global Element Properties, the HL7 EDI transformer provides two
+operations:
+
+* *Read* - Read HL7 messages. Provide an `<hl7-edi:read` statement such as:
++
+[source]
+<hl7-edi:read config-ref="HL7_EDI__Configuration" doc:name="HL7 EDI"/>
++
+This statement assumes that the `ediContent-ref` option is set to the `&#x0023;[payload]` default value. You can change the `ediContent-ref` option as needed, for example:
++
+[source]
+<hl7-edi:read config-ref="HL7_EDI__Configuration" ediContent-ref="#[message.payload]" doc:name="HL7 EDI"/>
++
+* *Write* - Write HL7 messages. Provide an `<hl7-edi:write` statement such as:
++
+[source]
+<hl7-edi:write config-ref="HL7_EDI__Configuration" messageStructure="InMessage" doc:name="HL7 EDI"/>
++
+This statement assumes that the `message-ref` option is set to the "#[payload]" default value. You can change this as needed, for example:
++
+[source]
+<hl7-edi:write config-ref="HL7_EDI__Configuration" messageStructure="InMessage" message-ref="#[message.payload]" doc:name="HL7 EDI"/>
++
+Set `messageStructure` to `InMessage` to acquire the current
+HL7 message prior to writing new content, or set `messageStructure` to `OutMessage` to write out content.
+....
+------
+
+After you create a global element for your HL7 EDI, configure the schemas and acknowledgments.
+
+See also: link:http://mulesoft.github.io/edi-module/[references for these options].
 
 == Use HL7 EDI Inside Mule Flows
 
@@ -307,7 +417,7 @@ Topics:
 
 === Understanding HL7 Message Structure
 
-The connector enables reading or writing of HL7 documents into or from the canonical ER7 message structure. This structure is represented as a hierarchy of Java Maps and Lists, which can be manipulated using DataWeave or code. Each transaction has its own structure, defined in the schemas as outlined above.
+The HL7 connector enables reading or writing of HL7 documents into or from the canonical ER7 message structure. This structure is represented as a hierarchy of Java Maps and Lists, which can be manipulated using DataWeave or code. Each transaction has its own structure, defined in the schemas as previously outlined.
 
 The message itself contains the following keys (some of which only apply to either the read operation or the write operation, as indicated):
 
@@ -315,7 +425,7 @@ The message itself contains the following keys (some of which only apply to eith
 |===
 |Key name |Description
 |ACK (read only) |ACK message generated in response to the input data. The MSA-1 acknowledgment code value is based on the parser configuration settings. To send an acknowledgment, see the Sending Acknowledgments section below.
-|Data |Wrapper for message data, with a key matching the message structure Id value linking to the actual data. This allows different messages to be included in the metadata and handled in DataWeave mappings.
+|Data |Wrapper for message data, with a key matching the message structure ID value linking to the actual data. This allows different messages to be included in the metadata and handled in DataWeave mappings.
 |Delimiters (read only) |The delimiters used for the message. The characters in the string are interpreted based on position, in the following order: (component separator), (repetition separator), (escape character), (subcomponent separator).
 |Errors (read only) |A list of errors which are associated with the input message. (See the HL7Error structure description in the Reading and Validating HL7 Messages section below.)
 |Id |Message structure ID.
@@ -332,11 +442,17 @@ image:show an image here of data sense for an expanded ACK message
 
 === Reading and Validating HL7 ER7 Messages
 
-To read an HL7 message, search the palette for "HL7 EDI" and drag the HL7 EDI building block into a flow. Then, go to the properties view, select the connector configuration you created above and select the "Read" operation. This operation reads any byte stream into the structure described by your HL7 schemas.
+To read an HL7 message, search the palette for "HL7 EDI" and drag the HL7 EDI building block into a flow. Then, go to the properties view, select the connector configuration you xref:configconnector[previously created] and select the *Read* operation:
 
-HL7 EDI validates the message structure when it reads it in. Message validation includes checking the syntax and content of the MSH and all component segments of the message. Normally errors are both logged and accumulated and reported in the generated ACK message provided in the generated data structure, and all messages (whether error free or with non-fatal errors) are passed on for processing as part of the output message Map. Errors in reading the input data results in exceptions being thrown.
+image:hl7-read-operation.png[hl7-read-operation]
 
+This operation reads any byte stream into the structure described by your HL7 schemas.
+
+HL7 EDI validates the message structure when it reads it in. Message validation includes checking the syntax and content of the MSH and all component segments of the message. Normally errors are both logged and accumulated and reported in the generated ACK message provided in the generated data structure, and all messages (whether error free or with non-fatal errors) are passed on for processing as part of the output message Map. Errors in reading the input data result in exceptions being thrown.
+
+////
 image:hl7-module-4.png[hl7-module-4]
+////
 
 Error data entered in the receive data map uses the HL7Error class, a read-only JavaBean with the following properties:
 
@@ -354,7 +470,9 @@ Error data is returned by the read operation as an optional list with the "Error
 
 === Writing HL7 EDI Messages
 
-To write an outgoing message, construct an outgoing HL7 EDI message according to the structure as defined above. For example, this sample creates an outgoing HL7 message which is written to a file.
+To write an outgoing message, construct an outgoing HL7 EDI message according to the previously defined structure.
+
+For example, this sample creates an outgoing HL7 message that is written to a file.
 
 [source, xml, linenums]
 ----
