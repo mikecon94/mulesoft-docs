@@ -227,9 +227,6 @@ Follow these steps to create a global HL7 EDI configuration in a Mule applicati
 
 . Click the *Global Elements* tab at the base of the canvas, then click *Create*.
 . In the *Choose Global Type* wizard, use the filter to locate and select, *HL7 EDI: Configuration*, then click *OK*.
-+
-image:hl7-module-3.png[hl7-module-3]
-+
 . Configure the parameters according to the connector reference.
 . Click *OK* to save the global connector configurations.
 . Return to the *Message Flow* tab in Studio.
@@ -399,7 +396,7 @@ Individual messages have their own maps, with keys matching the segments of the 
 
 ////
 <IMAGE>
-image:show an image here of data sense for an expanded ACK message
+Show an image here of data sense for an expanded ACK message
 ////
 
 === Reading and Validating HL7 ER7 Messages
