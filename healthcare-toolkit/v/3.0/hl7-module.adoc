@@ -209,7 +209,8 @@ The usage value may be:
 
 To use the connector, you need to know the locations of the schemas in your project. If you're using the out of the box HL7 schemas and not customizing anything, the schema location follows the  `/hl7/{version}/{message structure}.esl` pattern. For example, if you're using the `2.5.1` version and the ADT_A01 message structure, your schema location is `/hl7/v2_5_1/ADT_A01.esl`.
 
-If you're creating a custom implementation convention (whether full schemas, or overlay schemas), you should put your schemas under a directory in src/main/app and refer to the location using `${app.home}`. For example, if you've put your ADT_A01 schema under `src/main/app/mypartner/ADT_A01.esl`, your schema location is `${app.home}/mypartner/ADT_A01.esl`. The Mule Runtime automatically checks `src/main/app`
+If you're creating a custom implementation convention (whether full schemas, or overlay schemas), you should put your schemas under a directory in `src/main/app` and refer to the location using `${app.home}`. For example, if you've put your ADT_A01 schema under `src/main/app/mypartner/ADT_A01.esl`, your schema location is `${app.home}/mypartner/ADT_A01.esl`.
+The Mule Runtime automatically checks `src/main/app`
 for any locations that contain the `${app.home}` value.
 
 [[configconnector]]
@@ -267,17 +268,6 @@ You can set the following options if needed:
 * Fail when unused segment included in message set
 * Fail when too many repeats of segment
 
-=== Operations
-
-After setting Global Element Properties, the HL7 EDI transformer provides two
-operations:
-
-* *Read* - Read HL7 messages. Set a Mule expression in the *Edi Content Reference* field such as
-`&#x0023;[payload]` for the format of your read request.
-* *Write* - Write HL7 messages. Set the *Message Structure* field to `InMessage` to acquire the current
-HL7 message prior to writing new content, or set *Message Structure* to `OutMessage` to write out content. Set a Mule expression in the *Message Reference* field such as
-`&#x0023;[payload]` for the format of your write request.
-
 ....
 [tab,title="XML Editor or Standalone"]
 ....
@@ -295,7 +285,6 @@ http://www.mulesoft.org/schema/mule/hl7-edi http://www.mulesoft.org/schema/mule/
 http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
-
 ----
 
 Follow these steps to configure HL7 EDI in your application:
@@ -312,7 +301,7 @@ Follow these steps to configure HL7 EDI in your application:
 </hl7-edi:config>
 ----
 
-=== Setting your HL7 Identification
+=== Setting Your HL7 Identification
 
 You can configure the Message Header (MSH) application and facility identification for you and your trading partner on the HL7 EDI connector configuration.
 
@@ -357,7 +346,7 @@ You can set the following options if needed:
 
 NOTE: Currently, you can only configure schema locations in the Anypoint Studio XML view.
 
-Switch to the XML view by clicking *Configuration XML* in Studio and modify your HL7 EDI configuration to include a list of all the schemas you wish to include by adding an `+<http://edischema[edi:schema]>+` element for each document type:
+In Anypoint Studio, switch to the XML view by clicking *Configuration XML* and modify your HL7 EDI configuration to include a list of all the schemas you wish to include by adding an `+<http://edischema[edi:schema]>+` element for each document type:
 
 [source, xml, linenums]
 ----
@@ -369,37 +358,10 @@ Switch to the XML view by clicking *Configuration XML* in Studio and modify your
 </hl7-edi:config>
 ----
 
-=== Operations
-
-After setting Global Element Properties, the HL7 EDI transformer provides two
-operations:
-
-* *Read* - Read HL7 messages. Provide an `<hl7-edi:read` statement such as:
-+
-[source]
-<hl7-edi:read config-ref="HL7_EDI__Configuration" doc:name="HL7 EDI"/>
-+
-This statement assumes that the `ediContent-ref` option is set to the `&#x0023;[payload]` default value. You can change the `ediContent-ref` option as needed, for example:
-+
-[source]
-<hl7-edi:read config-ref="HL7_EDI__Configuration" ediContent-ref="#[message.payload]" doc:name="HL7 EDI"/>
-+
-* *Write* - Write HL7 messages. Provide an `<hl7-edi:write` statement such as:
-+
-[source]
-<hl7-edi:write config-ref="HL7_EDI__Configuration" messageStructure="InMessage" doc:name="HL7 EDI"/>
-+
-This statement assumes that the `message-ref` option is set to the "#[payload]" default value. You can change this as needed, for example:
-+
-[source]
-<hl7-edi:write config-ref="HL7_EDI__Configuration" messageStructure="InMessage" message-ref="#[message.payload]" doc:name="HL7 EDI"/>
-+
-Set `messageStructure` to `InMessage` to acquire the current
-HL7 message prior to writing new content, or set `messageStructure` to `OutMessage` to write out content.
 ....
 ------
 
-After you create a global element for your HL7 EDI, configure the schemas and acknowledgments.
+After you create a global element for your HL7 EDI, configure the message structure, operations, and acknowledgments.
 
 See also: link:http://mulesoft.github.io/edi-module/[references for these options].
 
@@ -448,11 +410,7 @@ image:hl7-read-operation.png[hl7-read-operation]
 
 This operation reads any byte stream into the structure described by your HL7 schemas.
 
-HL7 EDI validates the message structure when it reads it in. Message validation includes checking the syntax and content of the MSH and all component segments of the message. Normally errors are both logged and accumulated and reported in the generated ACK message provided in the generated data structure, and all messages (whether error free or with non-fatal errors) are passed on for processing as part of the output message Map. Errors in reading the input data result in exceptions being thrown.
-
-////
-image:hl7-module-4.png[hl7-module-4]
-////
+HL7 EDI validates the message structure when it reads it in. Message validation includes checking the syntax and content of the MSH and all component segments of the message. Normally errors are logged and accumulated, and reported in the generated ACK message provided in the generated data structure. All messages, whether error free or with non-fatal errors are passed on for processing as part of the output message Map. Errors reading the input data cause exceptions to be thrown.
 
 Error data entered in the receive data map uses the HL7Error class, a read-only JavaBean with the following properties:
 
@@ -483,7 +441,9 @@ For example, this sample creates an outgoing HL7 message that is written to a fi
 
 === Sending Acknowledgments
 
-Sending generated ACK messages is the same as writing any other HL7 message, except you set the ACK message generated during the read operation as the output message under the Data key. For example:
+An ACK (acknowledgement) message is an HL7 message that lets you acknowledge to a message sender that your application has received a message. ACK messages are the same as writing any other HL7 message, except you set the ACK message to what was generated during the read operation as the output message under a `Data` key.
+
+For example:
 
 [source, xml, linenums]
 ----
@@ -508,6 +468,76 @@ Sending generated ACK messages is the same as writing any other HL7 message, exc
 ----
 
 The generated ACK messages have MSH data set up for sending back to the sender of the original message, so you don't need to change anything in the data in order to do the send.
+
+== HL7 and MTTP DataWeave Example
+
+The following example shows the use of HL7, MTTP, and DataWeave to read, write, and acknowledge messages.
+
+image:hl7-mttp-example-flow.png[hl7-mttp-example-flow]
+
+[source,xml,linenums]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:hl7-edi="http://www.mulesoft.org/schema/mule/hl7-edi" xmlns:hl7-transformer="http://www.mulesoft.org/schema/mule/hl7-transformer" xmlns:hl7="http://www.mulesoft.org/schema/mule/hl7" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/hl7 http://www.mulesoft.org/schema/mule/hl7/current/mule-hl7.xsd
+http://www.mulesoft.org/schema/mule/hl7-edi http://www.mulesoft.org/schema/mule/hl7-edi/current/mule-hl7-edi.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
+    <hl7-edi:config name="HL7_EDI__Configuration" doc:name="HL7 EDI: Configuration">
+      <hl7-edi:schemas>
+        <hl7-edi:schema>/hl7/v2_3_1/ADT_A01.esl</hl7-edi:schema>
+      </hl7-edi:schemas>
+    </hl7-edi:config>
+    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/>
+    <file:connector name="File" autoDelete="true" streaming="true" validateConnections="true" doc:name="File"/>
+    <flow name="hl7HttpTransport">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/hl7" doc:name="HTTP"/>
+        <hl7-edi:read config-ref="HL7_EDI__Configuration" doc:name="HL7 EDI"/>
+        <dw:transform-message doc:name="Transform Message">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+{
+	Name: "ACK",
+	MSH: payload.ACK."01_MSH",
+	Id: "ACK",
+	Data: {
+		ACK: payload.ACK
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <hl7-edi:write config-ref="HL7_EDI__Configuration" messageStructure="InMessage" doc:name="HL7 EDI"/>
+        <logger message="#[payload]" level="INFO" doc:name="Logger"/>
+    </flow>
+    <flow name="hl7MllpTransport">
+        <hl7:inbound-endpoint host="localhost" port="8083" responseTimeout="10000" exchange-pattern="request-response" doc:name="HL7 MLLP" disableTransportTransformer="true"/>
+        <hl7-edi:read config-ref="HL7_EDI__Configuration" doc:name="HL7 EDI"/>
+        <dw:transform-message doc:name="Transform Message">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+{
+	Name: "ACK",
+	MSH: payload.ACK."01_MSH",
+	Id: "ACK",
+	Data: {
+		ACK: payload.ACK
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <hl7-edi:write config-ref="HL7_EDI__Configuration" messageStructure="ACK" doc:name="HL7 EDI"/>
+        <logger message="#[payload]" level="INFO" doc:name="Logger"/>
+    </flow>
+</mule>
+----
 
 == See Also
 
