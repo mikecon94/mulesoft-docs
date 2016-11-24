@@ -7,7 +7,7 @@ HL7 EDI includes:
 
 * HL7 ER7 message-reading, message-validation, and message-writing
 * Integration with DataSense and DataWeave
-* HL7 message packs for *v2.1, v2.2, v2.3.1, v2.3, v2.4, v2.5, v2.5.1, v2.6, 2.7, 2.7.1, 2.8,* and *2.8.1*
+* HL7 message packs for v2.1, v2.2, v2.3.1, v2.3, v2.4, v2.5, v2.5.1, v2.6, 2.7, 2.7.1, 2.8, and 2.8.1
 * The ability to define your own schemas or customize the base HL7 schemas
 
 To get started using the connector, follow these steps:
@@ -105,7 +105,7 @@ The modifications in this example specify that the PD1 segment and the INSURANCE
 
 The key-value pairs at the structure level are:
 
-[%header,cols="3s,7a"]
+[%header,cols="20s,80a"]
 |===
 |Key |Description
 |idRef |The ID for the message structure being modified.
@@ -115,7 +115,7 @@ The key-value pairs at the structure level are:
 
 Each item in the list of structure data components is either a segment reference or a group definition. Both are shown here using a compact YAML syntax where the values for each reference are given as comma-separated key-value pairs enclosed in curly braces. The values are:
 
-[%header,cols="3s,7a"]
+[%header,cols="20s,80a"]
 |===
 |Key |Description
 |idRef |The referenced segment ID (optional, verified if provided but otherwise ignored – the position value is used to uniquely identify segments within the section).
@@ -133,7 +133,7 @@ Values may be:
 
 The values in a group definition are:
 
-[%header, cols=”20a,80a”]
+[%header,cols="20s,80a"]
 |===
 |Key |Description
 |groupIdRef |The referenced group ID (optional, verified if provided but otherwise ignored – the position value is used to uniquely identify a group within a section).
@@ -178,7 +178,7 @@ The above example uses the compact form for segment modifications that only invo
 
 The key-value pairs in a segment overlay are:
 
-[%header,cols="3s,7a"]
+[%header,cols="20s,80a"]
 |===
 |Key |Description
 |idRef |Segment identifier.
@@ -188,7 +188,7 @@ The key-value pairs in a segment overlay are:
 
 The values list references values in the segment by position. The values for these references are:
 
-[%header, cols=”20a,80a”]
+[%header,cols="20s,80a"]
 |===
 |Key |Description
 |position |The value position within the segment.
@@ -284,9 +284,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
 ----
 
-Follow these steps to configure HL7 EDI in your application:
-
-. Create a global configuration outside and above your flows, using the following global configuration code:
+Configure HL7 EDI in your application by creating a global configuration outside and above your flows using the following global configuration code:
 +
 [source, xml, linenums]
 ----
@@ -380,7 +378,7 @@ The HL7 connector enables reading or writing of HL7 documents into or from the c
 
 The message itself contains the following keys (some of which only apply to either the read operation or the write operation, as indicated):
 
-[%header,cols="3s,7a"]
+[%header,cols="20s,80a"]
 |===
 |Key name |Description
 |ACK (read only) |ACK message generated in response to the input data. The MSA-1 acknowledgment code value is based on the parser configuration settings. To send an acknowledgment, see the Sending Acknowledgments section below.
@@ -411,7 +409,7 @@ HL7 EDI validates the message structure when it reads it in. Message validation
 
 Error data entered in the receive data map uses the HL7Error class, a read-only JavaBean with the following properties:
 
-[%header,cols="3s,7a"]
+[%header,cols="20s,80a"]
 |===
 |Property |Description
 |segment |The zero-based index within the input of the segment causing the error.
