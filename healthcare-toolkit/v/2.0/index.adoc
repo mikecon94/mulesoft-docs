@@ -25,7 +25,7 @@ The Mule Healthcare toolkit allows you to send and receive HL7 messages over MLL
 Other features:
 
 * link:/healthcare-toolkit/v/2.0/hl7-message-validation[HL7 Message Validation], which you can apply at a global connector level or for specific message processors only
-* link:/healthcare-toolkit/v/2.0/hl7-mule-expression-language-support[HL7 Mule Expression Language Support] allows you to access and modify the contents of an HL7 message using the link:/mule-user-guide/v/3.7/mule-expression-language-mel[Mule Expression Language MEL]
+* link:/healthcare-toolkit/v/2.0/hl7-mule-expression-language-support[HL7 Mule Expression Language Support] allows you to access and modify the contents of an HL7 message using the link:/mule-user-guide/v/3.8/mule-expression-language-mel[Mule Expression Language MEL]
 
 This page describes the functionality included in the MuleSoft Healthcare toolkit, and provides installation instructions.
 
@@ -90,7 +90,7 @@ The Mule Healthcare Toolkit includes the following elements.
 |link:/healthcare-toolkit/v/2.0/hl7-exception-strategy[HL7 Exception Strategy]
 |N/A
 |N/A
-|Sets a flow's link:/mule-user-guide/v/3.7/error-handling[exception strategy] to HL7, instead of the link:/mule-user-guide/v/3.7/error-handling[default], and sends an (N)ACK message to the originating application.
+|Sets a flow's link:/mule-user-guide/v/3.8/error-handling[exception strategy] to HL7, instead of the link:/mule-user-guide/v/3.8/error-handling[default], and sends an (N)ACK message to the originating application.
 |===
 
 == Installing the Mule Healthcare Toolkit
@@ -124,13 +124,13 @@ Allow the following sites on your firewall to allow Studio to connect to the upd
 . Click *I accept the terms of the license agreement*, then click *Finish*.
 . After installation finishes, the installer asks you to restart Studio. Click *Yes* to restart. After Studio restarts, type `HL7` in the palette search to quickly find HL7 building blocks (see image below).
 +
-image:hl7_palette.png[hl7_palette]
+image:hl7-palette.png[hl7-palette]
 
 
 == See Also
 
 * Use the link:/healthcare-toolkit/v/2.0/testing-with-hapi-testpanel[HAPI TestPanel] to test your HL7 application.
-* Learn more about link:/mule-user-guide/v/3.7/transformers[transformers] in Studio.
-* Learn more about link:/mule-user-guide/v/3.7/components[components] in Studio.
-* Learn more about link:/mule-user-guide/v/3.7/filters[filters] in Studio.
-* Learn more about link:/mule-user-guide/v/3.7/anypoint-connectors[connectors] in Studio.
+* link:http://training.mulesoft.com[MuleSoft Training]
+* link:https://www.mulesoft.com/webinars[MuleSoft Webinars]
+* link:http://blogs.mulesoft.com[MuleSoft Blogs]
+* link:http://forums.mulesoft.com[MuleSoft Forums]

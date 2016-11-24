@@ -2,7 +2,7 @@
 :keywords: hl7, message, validation
 
 [NOTE]
-The HL7 connector is part of the link:/mule-healthcare-toolkit/v/3.7[Mule Healthcare Toolkit], which also includes transformers and components for receiving, processing, and sending HL7 messages. For details and a full list of available tools, consult the Toolkit's link:/mule-healthcare-toolkit/v/3.7[documentation main page].
+The HL7 connector is part of the link:/healthcare-toolkit/v/2.0[Mule Healthcare Toolkit], which also includes transformers and components for receiving, processing, and sending HL7 messages. For details and a full list of available tools, consult the Toolkit's link:/healthcare-toolkit/v/2.0[documentation main page].
 
 == Overview
 
@@ -10,8 +10,9 @@ The Mule Healthcare toolkit allows you to configure validation for HL7 messages.
 
 The validation setting can have one of three values, described in the table below.
 
-[cols=",",]
+[%header%autowidth.spread]
 |===
+|Setting |Description
 |none |No validation
 |`WEAK` |Checks that the message is well-formed
 |`STRONG` |Checks that message is well-formed, and that all structural elements of the message are present
@@ -21,7 +22,7 @@ The validation setting can have one of three values, described in the table belo
 
 The table below lists the tools in the HL7 toolkit that support validation.
 
-[cols=",,",options="header",]
+[%header%autowidth.spread]
 |===
 |Tool |Validation |Remarks
 |HL7 Connector |YES |When defined in a global HL7 connector, Mule implements validation only for those HL7 endpoints that reference the connector. If no HL7 endpoints reference the connector, Mule automatically applies validation in all HL7 endpoints in the application.
@@ -41,18 +42,25 @@ If you set validation only in specific message processors, Mule only applies val
 
 Combining these configurations with the validation setting (`WEAK` or `STRONG`) allows you to use validation beyond the simple case of rejecting an invalid HL7 message. For example, you can reject HL7 messages using strong validation but still perform logging or preliminary business logic on them. The image below illustrates a simple example of this type of validation.
 
-image:VALIDATION-sample_flow.png[VALIDATION-sample_flow]
+image:validation-sample-flow.png[validation-sample-flow]
 
 *Flow 1:*
 
-* An link:/mule-healthcare-toolkit/v/3.7/hl7-endpoint-reference[HL7 Endpoint] receives incoming HL7 messages. This endpoint references *HL7 Connector 1*, which applies weak validation. If the incoming messages passes validation, the endpoint forwards it to the next message processor.
-* A link:/mule-user-guide/v/3.7/variable-transformer-reference[Variable Transformer] defines variables for logging.
-* A link:/mule-user-guide/v/3.7/logger-component-reference[Logger Component] performs logging.
-* A link:/mule-user-guide/v/3.7/flow-reference-component-reference[Flow Ref Component] invokes the next flow.
-* An link:/mule-healthcare-toolkit/v/3.7/hl7-ack-component-reference[HL7 ACK Component] sends an ACK message back to the originating application.
+* An link:/healthcare-toolkit/v/2.0/hl7-endpoint-reference[HL7 Endpoint] receives incoming HL7 messages. This endpoint references *HL7 Connector 1*, which applies weak validation. If the incoming messages passes validation, the endpoint forwards it to the next message processor.
+* A link:/mule-user-guide/v/3.8/variable-transformer-reference[Variable Transformer] defines variables for logging.
+* A link:/mule-user-guide/v/3.8/logger-component-reference[Logger Component] performs logging.
+* A link:/mule-user-guide/v/3.8/flow-reference-component-reference[Flow Ref Component] invokes the next flow.
+* An link:/healthcare-toolkit/v/2.0/hl7-ack-component-reference[HL7 ACK Component] sends an ACK message back to the originating application.
 
 *Flow 2:*
 
 * An HL7 endpoint receives the message sent by Flow 1. This endpoint references *HL7 Connector 2,* which applies strong validation. If the message passes validation, the endpoint forwards it to the main logic in the flow.
 
 If this example application receives an HL7 message that is not valid for its main logic, the application rejects the message, but still logs relevant information about it.
+
+== See Also
+
+* link:http://training.mulesoft.com[MuleSoft Training]
+* link:https://www.mulesoft.com/webinars[MuleSoft Webinars]
+* link:http://blogs.mulesoft.com[MuleSoft Blogs]
+* link:http://forums.mulesoft.com[MuleSoft Forums]

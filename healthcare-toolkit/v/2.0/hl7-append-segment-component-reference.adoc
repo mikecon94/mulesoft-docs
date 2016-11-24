@@ -1,10 +1,10 @@
 = HL7 Append Segment Component Reference
 :keywords: hl7, append, segment
 
-The *Append Segment component* adds a segment to an HL7 message. Like the link:/mule-healthcare-toolkit/v/3.7/hl7-delete-segment-component-reference[HL7 Delete Segment component], it works with instances of HAPI message objects. If your HL7 message is not a HAPI message object, you must use the link:/mule-healthcare-toolkit/v/3.7/hl7-encoding-transformer[HL7 Encoding Transformer] to convert it before it passes through the Append Segment component.
+The *Append Segment component* adds a segment to an HL7 message. Like the link:/healthcare-toolkit/v/2.0/hl7-delete-segment-component-reference[HL7 Delete Segment component], it works with instances of HAPI message objects. If your HL7 message is not a HAPI message object, you must use the link:/healthcare-toolkit/v/2.0/hl7-encoding-transformer[HL7 Encoding Transformer] to convert it before it passes through the Append Segment component.
 
 [NOTE]
-The HL7 Append Segment component is part of the link:/mule-healthcare-toolkit/v/3.6[Mule Healthcare Toolkit], which includes transformers, components, and connectors for receiving, processing, and sending HL7 messages. For details and a full list of available tools, consult the Toolkit's  link:/mule-healthcare-toolkit/v/3.6[main documentation page].
+The HL7 Append Segment component is part of the link:/healthcare-toolkit/v/2.0[Mule Healthcare Toolkit], which includes transformers, components, and connectors for receiving, processing, and sending HL7 messages. For details and a full list of available tools, consult the Toolkit's  link:/healthcare-toolkit/v/2.0[main documentation page].
 
 == Configuration
 
@@ -15,7 +15,7 @@ The HL7 Append Segment component is part of the link:/mule-healthcare-toolkit/v/
 
 == XML Element
 
-[source, code, linenums]
+[source]
 ----
 hl7:append-segment
 ----
@@ -34,7 +34,7 @@ SAMPLE AVENUE^^CITYNAME^CA^21" doc:name="Append Segment" repetition="2" isNonSta
 ----
 
 ....
-[tab,title="ESB"]
+[tab,title="Mule Runtime"]
 ....
 
 [source,xml, linenums]
@@ -46,7 +46,7 @@ SAMPLE AVENUE^^CITYNAME^CA^21" repetition="2" isNonStandard="false" validation="
 ....
 ------
 
-== Configuration For Studio and Mule ESB
+== Configuration For Studio and Mule Runtime
 
 
 [tabs]
@@ -54,13 +54,13 @@ SAMPLE AVENUE^^CITYNAME^CA^21" repetition="2" isNonStandard="false" validation="
 [tab,title="Studio Visual Editor"]
 ....
 
-image:hl7_append.png[hl7_append]
+image:hl7-append.png[hl7-append]
 
 === General
 
 The following tables list and describe configurable parameters for this building block. In this table, *Name* refers to the parameter name as it appears in the *Pattern Properties* window. The *XML* column lists the corresponding XML attribute.
 
-[width="100%",cols="34a,33a,33a",options="header"]
+[%header%autowidth.spread]
 |===
 |Name
 |Description
@@ -68,14 +68,14 @@ The following tables list and describe configurable parameters for this building
 
 |*Display Name*
 |The name of the building block as it appears in the flow.
-|[source, code, linenums]
+|[source]
 ----
 doc:name="Sample Name"
 ----
 
 |*Segment Name*
 |*(Required)* 3-byte identifier of the segment to add.
-|[source, code, linenums]
+|[source]
 ----
 segmentName="PID"
 ----
@@ -90,14 +90,14 @@ SAMPLE AVENUE^^CITYNAME^CA^21"
 
 |*Repetition*
 |Repetition index for the segment, if any.
-|[source, code, linenums]
+|[source]
 ----
 repetition="2"
 ----
 
 |*Is Non Standard*
 |*(Boolean)* Allows you to select whether the segment adheres strictly to the HL7 standard. If `true`, Mule does not check the segment for standard compliance.
-|[source, code, linenums]
+|[source]
 ----
 isNonStandard="false"
 ----
@@ -108,7 +108,7 @@ isNonStandard="false"
 * STRONG: Checks that all message structure components are present, and that the message is well-formed
 * WEAK: Only checks that the message is well-formed
 
-|[source, code, linenums]
+|[source]
 ----
 validation="STRONG"
 ----
@@ -120,25 +120,24 @@ validation="STRONG"
 
 To access the Studio XML Editor, click the *Configuration XML* tab under the canvas.
 
-For details, see http://www.mulesoft.org/documentation/display/current/Mule+Studio+Essentials#MuleStudioEssentials-XMLEditorTipsandTricks[XML Editor trips and tricks].
-
 The table below describes all configurable parameters for this building block.
 
-[width="100%",cols="34a,33a,33a",options="header"]
+[%header%autowidth.spread]
 |===
 |Name
 |Description
 |XML
 
 |*Display Name*
-|The name of the building block as it appears in the flow. |[source, code, linenums]
+|The name of the building block as it appears in the flow. 
+|[source]
 ----
 doc:name="Sample Name"
 ----
 
 |*Segment Name*
 |*(Required)* 3-byte identifier of the segment to add.
-|[source, code, linenums]
+|[source]
 ----
 segmentName="PID"
 ----
@@ -153,14 +152,14 @@ SAMPLE AVENUE^^CITYNAME^CA^21"
 
 |*Repetition*
 |Repetition index for the segment, if any.
-|[source, code, linenums]
+|[source]
 ----
 repetition="2"
 ----
 
 |*Is Non Standard*
 |*(Boolean)* Allows you to select whether the segment adheres strictly to the HL7 standard. If `true`, Mule does not check the segment for standard compliance.
-|[source, code, linenums]
+|[source]
 ----
 isNonStandard="false"
 ----
@@ -168,10 +167,10 @@ isNonStandard="false"
 |*Strong / Weak Validation*
 |Allows you to select between STRONG or WEAK HL7 message validation (leave blank for no validation).
 
-* STRONG: Checks that all message structure components are present, and that the message is well-formed
-* WEAK: Only checks that the message is well-formed
+* STRONG: Checks that all message structure components are present, and that the message is well-formed.
+* WEAK: Only checks that the message is well-formed.
 
-|[source, code, linenums]
+|[source]
 ----
 validation="STRONG"
 ----
@@ -183,7 +182,7 @@ validation="STRONG"
 
 === HL7 Append Message Component Attributes
 
-[width="100%",cols="20a,20a,20a,20a,2a",options="header"]
+[%header%autowidth.spread]
 |===
 |Name |Type/Allowed values |Required |Default |Description
 |`segment` |string |yes |- |HL7 segment to append to the message
@@ -202,14 +201,14 @@ validation="STRONG"
 
 === Namespace and Syntax
 
-[source, code, linenums]
+[source]
 ----
 http://www.mulesoft.org/schema/mule/hl7
 ----
 
 === XML Schema Location
 
-[source, code, linenums]
+[source]
 ----
 http://www.mulesoft.org/schema/mule/hl7/mule-hl7.xsd
 ----
@@ -219,4 +218,11 @@ http://www.mulesoft.org/schema/mule/hl7/mule-hl7.xsd
 == Transform to HAPI Object
 
 [NOTE]
-If the HL7 message that you wish to modify is not a HAPI object, transform it to a HAPI object with the link:/mule-healthcare-toolkit/v/3.7/hl7-encoding-transformer[HL7 Encoding Transformer], which you can place immediately before the Append Segment component. 
+If the HL7 message that you wish to modify is not a HAPI object, transform it to a HAPI object with the link:/healthcare-toolkit/v/2.0/hl7-encoding-transformer[HL7 Encoding Transformer], which you can place immediately before the Append Segment component. 
+
+== See Also
+
+* link:http://training.mulesoft.com[MuleSoft Training]
+* link:https://www.mulesoft.com/webinars[MuleSoft Webinars]
+* link:http://blogs.mulesoft.com[MuleSoft Blogs]
+* link:http://forums.mulesoft.com[MuleSoft Forums]

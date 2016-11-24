@@ -4,9 +4,9 @@
 The *HL7 Message component* generates a new ER7-encoded HL7 message with user-defined parameters.
 
 [NOTE]
-This component is part of the link:/mule-healthcare-toolkit/v/3.6[Mule Healthcare Toolkit], which includes transformers, components, and endpoints for receiving, processing and sending HL7 messages. For details and a full list of available tools, consult the Toolkit's  link:/mule-healthcare-toolkit/v/3.6[documentation main page].
+This component is part of the link:/healthcare-toolkit/v/2.0[Mule Healthcare Toolkit], which includes transformers, components, and endpoints for receiving, processing and sending HL7 messages. For details and a full list of available tools, consult the Toolkit's link:/healthcare-toolkit/v/2.0[documentation main page].
 
-<<Configuration For Studio and Mule ESB>>
+<<Configuration For Studio and Mule Runtime>>
 
 == Configuration
 
@@ -18,11 +18,11 @@ This component is part of the link:/mule-healthcare-toolkit/v/3.6[Mule Healthcar
 All fields must conform to the HL7 format. Non-conformant fields  generate an error message in Mule, and the message is not sent.
 
 [NOTE]
-This HL7 message component cannot generate the HL7 message payload, nor incorporate data from an external source for the HL7 message payload. To add a payload, use an  link:/mule-healthcare-toolkit/v/3.7/hl7-append-segment-component-reference[HL7 Append Segment component].
+This HL7 message component cannot generate the HL7 message payload, nor incorporate data from an external source for the HL7 message payload. To add a payload, use an  link:/healthcare-toolkit/v/2.0/hl7-append-segment-component-reference[HL7 Append Segment component].
 
 == XML Element
 
-[source, code, linenums]
+[source]
 ----
 hl7:create-message
 ----
@@ -34,24 +34,24 @@ hl7:create-message
 [tab,title="Studio"]
 ....
 
-[source,xml, linenums]
+[source,xml]
 ----
-<hl7:create-message version="2.6" messageType="ADT" triggerEvent="A03" doc:name="sampleName" dateTime="20130123" messageStructure="ADT_A01" receivingApplication="App Name" receivingFacility="Facility Name" sendingApplication="App Name" sendingFacility="Facility Name"/>
+<hl7:create-message version="2.6" messageType="ADT" triggerEvent="A03" doc:name="sampleName" dateTime="20160123" messageStructure="ADT_A01" receivingApplication="App Name" receivingFacility="Facility Name" sendingApplication="App Name" sendingFacility="Facility Name"/>
 ----
 
 ....
-[tab,title="ESB"]
+[tab,title="Mule Runtime"]
 ....
 
-[source,xml, linenums]
+[source,xml]
 ----
-<hl7:create-message version="2.6" messageType="ADT" triggerEvent="A03" dateTime="20130123" messageStructure="ADT_A01" receivingApplication="App Name" receivingFacility="Facility Name" sendingApplication="App Name" sendingFacility="Facility Name"/>
+<hl7:create-message version="2.6" messageType="ADT" triggerEvent="A03" dateTime="20160123" messageStructure="ADT_A01" receivingApplication="App Name" receivingFacility="Facility Name" sendingApplication="App Name" sendingFacility="Facility Name"/>
 ----
 
 ....
 ------
 
-== Configuration For Studio and Mule ESB
+== Configuration For Studio and Mule Runtime
 
 [tabs]
 ------
@@ -60,61 +60,63 @@ hl7:create-message
 
 === General Tab
 
-image:hl7_message_comp.png[hl7_message_comp]
+image:hl7-message-comp.png[hl7-message-comp]
 
 The generated message type is `ADT` (patient admissions, transfer, discharge, etc.) and its trigger event is `A03` (patient discharge). 
 
 The following tables describe configurable parameters for this building block. In this table, *Name* refers to the parameter name as it appears in the *Pattern Properties* window. The *XML* column lists the corresponding XML attribute.
 
-[width="100%",cols="34a,33a,33a",options="header"]
+[%header%autowidth.spread]
 |===
 |Name |Description |XML
-|*Display Name* |Name of the building block as it appears in the flow. |[source, code, linenums]
+|*Display Name* |Name of the building block as it appears in the flow. 
+|[source]
 ----
 doc:name="sampleName"
 ----
-|*HL7 Version* |HL7 version for the message (2.x supported). |[source, code, linenums]
+|*HL7 Version* |HL7 version for the message (2.x supported). 
+|[source]
 ----
 version="2.6"
 ----
 |*Message Type* |3-byte HL7 message type definition.
-|[source, code, linenums]
+|[source]
 ----
 messageType="ADT"
 ----
 |*Trigger Event* |3-byte HL7 trigger event definition.
-|[source, code, linenums]
+|[source]
 ----
 triggerEvent="A03"
 ----
 |*Message Structure* |Message structure (if different from Message Type + Trigger Event).
-|[source, code, linenums]
+|[source]
 ----
 messageStructure="ADT_A01"
 ----
 |*Sending Application* |String that defines the sending application.
-|[source, code, linenums]
+|[source]
 ----
 sendingApplication="App Name"
 ----
 |*Sending Facility* |String that defines the sending facility.
-|[source, code, linenums]
+|[source]
 ----
 sendingFacility="Facility Name"
 ----
 |*Receiving Application* |String that defines the receiving application.
-|[source, code, linenums]
+|[source]
 ----
 receivingApplication="App Name"
 ----
 |*Receiving Facility* |String that defines the receiving facility.
-|[source, code, linenums]
+|[source]
 ----
 receivingFacility="Facility Name"
 ----
 |*Date/Time* |Date and time in the following format: +
-YYYY[MM[DD[HHMM[SS[.S[S[S[S]]]]]]]][+/-ZZZZ]
-|[source, code, linenums]
+`YYYY[MM[DD[HHMM[SS[.S[S[S[S]]]]]]]][+/-ZZZZ]`
+|[source]
 ----
 dateTime="20130123"
 ----
@@ -126,60 +128,59 @@ dateTime="20130123"
 
 To access the Studio XML Editor, click the *Configuration XML* tab under the canvas.
 
-For details, see http://www.mulesoft.org/documentation/display/current/Mule+Studio+Essentials#MuleStudioEssentials-XMLEditorTipsandTricks[XML Editor trips and tricks].
-
 The table below describes all configurable parameters for this building block.
 
-[width="100%",cols="20a,40a,40a",options="header"]
+[%header%autowidth.spread]
 |===
 |Name |Description |XML
-|*Display Name* |Name of the building block as it appears in the flow. |[source, code, linenums]
+|*Display Name* |Name of the building block as it appears in the flow. 
+|[source]
 ----
 doc:name="sampleName"
 ----
 |*HL7 Version* |HL7 version for the message (2.x supported).
-|[source, code, linenums]
+|[source]
 ----
 version="2.6"
 ----
 |*Message Type* |3-byte HL7 message type definition.
-|[source, code, linenums]
+|[source]
 ----
 messageType="ADT"
 ----
 |*Trigger Event* |3-byte HL7 trigger event definition.
-|[source, code, linenums]
+|[source]
 ----
 triggerEvent="A03"
 ----
 |*Message Structure* |Message structure (if different from Message Type + Trigger Event).
-|[source, code, linenums]
+|[source]
 ----
 messageStructure="ADT_A01"
 ----
 |*Sending Application* |String that defines the sending application.
-|[source, code, linenums]
+|[source]
 ----
 sendingApplication="App Name"
 ----
 |*Sending Facility* |String that defines the sending facility.
-|[source, code, linenums]
+|[source]
 ----
 sendingFacility="Facility Name"
 ----
 |*Receiving Application* |String that defines the receiving application.
-|[source, code, linenums]
+|[source]
 ----
 receivingApplication="App Name"
 ----
 |*Receiving Facility* |String that defines the receiving facility.
-|[source, code, linenums]
+|[source]
 ----
 receivingFacility="Facility Name"
 ----
 |*Date/Time* |Date and time in the following format: +
 YYYY[MM[DD[HHMM[SS[.S[S[S[S]]]]]]]][+/-ZZZZ]
-|[source, code, linenums]
+|[source]
 ----
 dateTime="20130123"
 ----
@@ -191,7 +192,7 @@ dateTime="20130123"
 
 === HL7 Message Component Attributes
 
-[width="100%",cols="20a,20a,20a,20a,20a",options="header"]
+[%header%autowidth.spread]
 |===
 |Name |Type/Allowed Values |Required |Default |Description
 |`version` |* `2.1`
@@ -213,23 +214,30 @@ dateTime="20130123"
 |`receivingFacility` |string |No |- |The ID of the receiving facility
 |`dateTime` |string |No |Current date and time |Date and time in the following format:
 
-YYYY[MM[DD[HHMM[SS[.S[S[S[S]]]]]]]][+/-ZZZZ]
+`YYYY[MM[DD[HHMM[SS[.S[S[S[S]]]]]]]][+/-ZZZZ]`
 
 |===
 
 === Namespace and Syntax
 
-[source, code, linenums]
+[source]
 ----
 http://www.mulesoft.org/schema/mule/hl7
 ----
 
 === XML Schema Location
 
-[source, code, linenums]
+[source]
 ----
 http://www.mulesoft.org/schema/mule/hl7/mule-hl7.xsd
 ----
 
 ....
 ------
+
+== See Also
+
+* link:http://training.mulesoft.com[MuleSoft Training]
+* link:https://www.mulesoft.com/webinars[MuleSoft Webinars]
+* link:http://blogs.mulesoft.com[MuleSoft Blogs]
+* link:http://forums.mulesoft.com[MuleSoft Forums]

@@ -1,12 +1,12 @@
 = HL7 Exception Strategy
 :keywords: hl7, exception, strategy
 
-The HL7 exception strategy sets the flow's link:/mule-user-guide/v/3.7/error-handling[exception strategy] to HL7, instead of the link:/mule-user-guide/v/3.7/error-handling[default]. Additionally, it generates and sends an ACK message with the appropriate error code to the originating application.
+The HL7 exception strategy sets the flow's link:/mule-user-guide/v/3.8/error-handling[exception strategy] to HL7, instead of the link:/mule-user-guide/v/3.8/error-handling[default]. Additionally, it generates and sends an ACK message with the appropriate error code to the originating application.
 
 [NOTE]
-The HL7 endpoint is part of the link:/mule-healthcare-toolkit/v/3.6[Mule Healthcare Toolkit], which also includes transformers and components for receiving, processing and sending HL7 messages. For details and a full list of available tools, consult the Toolkit's link:/mule-healthcare-toolkit/v/3.6[documentation main page].
+The HL7 endpoint is part of the link:/healthcare-toolkit/v/2.0[Mule Healthcare Toolkit], which also includes transformers and components for receiving, processing and sending HL7 messages. For details and a full list of available tools, consult the Toolkit's link:/healthcare-toolkit/v/2.0[documentation main page].
 
-<<Configuration For Studio and Mule ESB>>
+<<Configuration For Studio and Mule Runtime>>
 
 == Configuration
 
@@ -16,7 +16,7 @@ In Studio, click and drag the HL7 exception strategy building block anywhere in 
 
 == XML Element
 
-[source, code, linenums]
+[source]
 ----
 hl7:exception-strategy
 ----
@@ -28,16 +28,16 @@ hl7:exception-strategy
 [tab,title="Studio"]
 ....
 
-[source,xml, linenums]
+[source,xml]
 ----
 <hl7:exception-strategy doc:name="Sample Name" doc:description="Sample description."/>
 ----
 
 ....
-[tab,title="ESB"]
+[tab,title="Mule Runtime"]
 ....
 
-[source,xml, linenums]
+[source,xml]
 ----
 <hl7:exception-strategy/>
 ----
@@ -45,7 +45,7 @@ hl7:exception-strategy
 ....
 ------
 
-== Configuration For Studio and Mule ESB
+== Configuration For Studio and Mule Runtime
 
 [tabs]
 ------
@@ -54,16 +54,16 @@ hl7:exception-strategy
 
 === General Tab
 
-image:hl7_ES.png[hl7_ES]
+image:hl7-es.png[hl7-es]
 
-[width="100%",cols="20a,40a,40a",options="header",]
+[%header%autowidth.spread]
 |===
 |Name
 |Description
 |XML
 |*Display Name*
 |Name of the building block as it appears in the flow
-|[source, code, linenums]
+|[source]
 ----
 doc:name="HL7 Exception Strategy"
 ----
@@ -74,7 +74,7 @@ The ACK or NACK (Negative ACK) code for the MSA-1 field of the ACK message. Appr
 * `AE`: Application error
 * `AR`: Application reject
 
-|[source, code, linenums]
+|[source]
 ----
 ackCode="AE"
 ----
@@ -86,11 +86,9 @@ ackCode="AE"
 
 To access the Studio XML Editor, click the *Configuration XML* tab under the canvas.
 
-For details, see http://www.mulesoft.org/documentation/display/current/Mule+Studio+Essentials#MuleStudioEssentials-XMLEditorTipsandTricks[XML Editor trips and tricks].
-
 The table below describes all configurable parameters for this building block.
 
-[width="100%",cols="20a,40a,40a",options="header"]
+[%header%autowidth.spread]
 |===
 |Name
 |Description
@@ -98,7 +96,7 @@ The table below describes all configurable parameters for this building block.
 
 |*Display Name*
 |Name of the building block as it appears in the flow
-|[source, code, linenums]
+|[source]
 ----
 doc:name="HL7 Exception Strategy"
 ----
@@ -109,7 +107,7 @@ The ACK or NACK (Negative ACK) code for the MSA-1 field of the ACK message. Appr
 * `AE`: Application error
 * `AR`: Application reject
 
-|[source, code, linenums]
+|[source]
 ----
 ackCode="AE"
 ----
@@ -121,7 +119,7 @@ ackCode="AE"
 
 === HL7 Exception Strategy Attributes
 
-[width="100%",cols="20a,20a,20a,20a,20a",options="header"]
+[%header%autowidth.spread]
 |===
 |Name
 |Type/Allowed values
@@ -138,14 +136,14 @@ ackCode="AE"
 
 === Namespace and Syntax
 
-[source, code, linenums]
+[source]
 ----
 http://www.mulesoft.org/schema/mule/hl7
 ----
 
 === XML Schema Location
 
-[source, code, linenums]
+[source]
 ----
 http://www.mulesoft.org/schema/mule/hl7/mule-hl7.xsd
 ----

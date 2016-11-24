@@ -63,7 +63,7 @@ hl7:outbound-endpoint
 
 === General Tab
 
-image:hl7_Endpoint_general.png[hl7_Endpoint_general]
+image:hl7-endpoint-general.png[hl7-endpoint-general]
 
 [%header%autowidth.spread]
 |===
@@ -93,7 +93,7 @@ port="50609"
 
 === Advanced Tab
 
-image:hl7_endpoint_advanced.png[hl7_endpoint_advanced]
+image:hl7-endpoint-advanced.png[hl7-endpoint-advanced]
 
 [%header%autowidth.spread]
 |===
@@ -169,7 +169,7 @@ exchange-pattern="one-way"
 
 === References Tab
 
-image:hl7_endpoint_references.png[hl7_endpoint_references]
+image:hl7-endpoint-references.png[hl7-endpoint-references]
 
 [%header%autowidth.spread]
 |===
